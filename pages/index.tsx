@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import getPathsForContentType from '../utlis/getPathsForContentType';
@@ -23,38 +24,38 @@ interface Item {
   sys: System;
 }
 
-const Home: NextPage = () => {
-  const [items, setItems] = useState<Item[]>([]);
+interface AppProps {
+  data: {
+    items: Item[];
+  };
+}
 
-  useEffect(() => {
-    const getItems = async () => {
-      const data = await client.getEntries({
-        content_type: 'productPage',
-      });
-
-      setItems(data.items);
-      const landingPages = await getPathsForContentType('landingPage');
-
-      console.log(landingPages);
-    };
-
-    getItems();
-  }, []);
-
+const Home: NextPage<AppProps> = ({ data }) => {
+  const { items } = data;
   return (
     <Layout>
-      {items.map((item) => (
-        <a
-          key={item.sys.id}
-          href={`/products/${item.sys.id}`}
-          style={{ width: '200px', display: 'inline-block', padding: '16px' }}
-        >
-          <img src={item.fields.image.fields.file.url} alt="" />
+      {items.map((item: Item) => (
+        <div key={item.sys.id} style={{ width: '200px', display: 'inline-block', padding: '16px' }}>
+          <Link href={`/products/${item.sys.id}`}>
+            <img src={item.fields.image.fields.file.url} alt="" style={{ cursor: 'pointer' }} />
+          </Link>
           <h4 style={{ textAlign: 'center' }}>{item.fields.title}</h4>
-        </a>
+        </div>
       ))}
     </Layout>
   );
 };
 
 export default Home;
+
+export async function getStaticProps() {
+  const data = await client.getEntries({
+    content_type: 'productPage',
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
