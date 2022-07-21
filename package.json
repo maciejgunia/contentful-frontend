@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.7.1",
     "contentful": "^9.1.32",
     "next": "12.2.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-instantsearch-hooks-web": "^6.30.2"
   },
   "devDependencies": {
     "@types/node": "18.0.4",

@@ -2,17 +2,11 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import Layout from '../components/Layout';
-
-const contentful = require('contentful');
-export const client = contentful.createClient({
-  space: '8jo7zc66kxlt',
-  accessToken: 'fmeHOZ-oTBWuxil1CWICXjz3XhM3G2cBZmi44xyqzsU',
-});
+import client from '../utlis/contentfulClient';
 
 interface Fields {
   title: string;
-  description: string;
-  image: any;
+  slug: string;
 }
 
 interface System {
@@ -37,7 +31,7 @@ const Home: NextPage<AppProps> = ({ data }) => {
       <ul>
         {items.map((item) => (
           <li key={item.sys.id}>
-            <Link href={item.sys.id}>{item.fields.title}</Link>
+            <Link href={item.fields.slug}>{item.fields.title}</Link>
           </li>
         ))}
       </ul>
