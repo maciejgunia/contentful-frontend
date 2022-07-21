@@ -1,26 +1,22 @@
 import { client } from '.';
 import Layout from '../components/Layout';
-import getPathsForContentType from '../utlis/getPathsForContentType';
+import componentMapper from '../utlis/componentMapper';
+import dataSourceMapper from '../utlis/dataSourceMapper';
 
-export default function Post({ data }: { data: any }) {
-  return (
-    <Layout>
-      <h2>{data.fields.title}</h2>
-    </Layout>
-  );
+export default function Page({ data, dataSources }: any) {
+  return <Layout>{componentMapper(data, dataSources)}</Layout>;
 }
 
-export async function getStaticPaths() {
-  return getPathsForContentType('landingPage');
-}
-
-export async function getStaticProps({ params }: { params: { id: string } }) {
+export async function getServerSideProps({ params }: { params: { id: string } }) {
   const { id } = params;
   const data = await client.getEntry(id);
+
+  const dataSources = await Promise.all(dataSourceMapper(data));
 
   return {
     props: {
       data,
+      dataSources,
     },
   };
 }

@@ -2,14 +2,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 const Layout: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <>
-      <h1>
-        <Link href="/">Home</Link>
-      </h1>
-      {children}
-    </>
-  );
+  return <div style={{ padding: '16px' }}>{children}</div>;
 };
 
 export default Layout;
