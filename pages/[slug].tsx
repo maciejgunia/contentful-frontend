@@ -1,6 +1,6 @@
 import Layout from '../components/Layout';
 import componentMapper from '../utlis/componentMapper';
-import client from '../utlis/contentfulClient';
+import client from '../utlis/contentfultClient';
 import dataSourceMapper from '../utlis/dataSourceMapper';
 
 export default function Page({ data, dataSources }: any) {

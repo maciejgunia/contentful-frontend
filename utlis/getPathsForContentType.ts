@@ -1,4 +1,4 @@
-import { client } from '../pages';
+import client from './contentfultClient';
 
 const getPathsForContentType = async (contentType: string) => {
   const data = await client.getEntries({

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import Layout from '../components/Layout';
-import client from '../utlis/contentfulClient';
+import client from '../utlis/contentfultClient';
 
 interface Fields {
   title: string;
